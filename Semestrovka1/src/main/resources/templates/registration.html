@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+    <script th:src="@{assets/js/main.js}"></script>
+    <title>Title</title>
+
+</head>
+<body>
+
+<nav th:insert="menu.html"></nav>
+
+<form method="post" action="/registration" id="regForm">
+
+    <h1>Регистрация</h1>
+
+    <input type="text" name="firstName" placeholder="Имя" id="firstName">
+
+    <input type="text" name="lastName" placeholder="Фамилия" id="lastName">
+
+    <input type="text" name="email" placeholder="Email" id="email">
+
+    <input type="password" name="password" placeholder="Пароль" id="password">
+
+
+    <input type="password" name="passwordRepeat" placeholder="Повторите пароль" id="passwordRepeat">
+
+    <button type="submit" class=" btn regbtn btn-outline-dark btn-sm">Зарегистрироваться</button>
+
+    <strong style="color:red; display: none" class="wrongUsernameOrPassword">Пользователь с данным логином уже
+        существует</strong>
+
+    <a href="/login">У меня есть аккаунт</a>
+
+</form>
+
+
+<script>
+    $('#regForm').submit(() => {
+
+        if ($('#regForm').valid()) {
+            $.ajax({
+                url: "/auth/registration",
+                type: "POST",
+                data: {
+                    "firstName": $("#firstName").val(),
+                    "lastName": $("#lastName").val(),
+                    "email": $("#email").val(),
+                    "password": $("#password").val(),
+                    "passwordRepeat": $("#passwordRepeat").val()
+                },
+                success: () => {
+                    $('.wrongUsernameOrPassword').hide()
+                    location.href = '/login'
+                },
+                error: () => {
+                    $('.wrongUsernameOrPassword').show()
+                }
+
+            })
+        }
+
+        return false;
+    })
+</script>
+
+
+</body>
+</html>

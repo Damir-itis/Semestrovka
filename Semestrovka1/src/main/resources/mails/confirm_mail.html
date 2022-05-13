@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Подтверждение Email</title>
+</head>
+<body>
+
+<h1 th:text="${'Привет, ' + firstName}"></h1>
+<p>Для подтверждения Email, перейдите по ссылке: </p>
+<a th:href="${'http://localhost/login?confirmCode='+ confirmCode}">Подтвердить</a>
+
+</body>
+</html>
