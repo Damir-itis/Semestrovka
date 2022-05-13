@@ -1,0 +1,32 @@
+<ul>
+    <li>
+        <a href="/">Главная</a>
+    </li>
+    <li>
+        <a href="/course/myCourses">Мои курсы</a>
+    </li>
+    <li>
+        <a href="/course/createCourse">Создать курс</a>
+    </li>
+
+</ul>
+<ul sec:authorize="isAuthenticated()">
+    <li th:with="avatar=${#authentication.getPrincipal().user.avatar}">
+        <a href="/profilepage">
+            <img th:src="${avatar != null ? '/files/' + avatar.storageFileName : '/assets/images/homePageImages/default.png'}">
+        </a>
+    </li>
+</ul>
+<ul sec:authorize="isAuthenticated()">
+    <li>
+        <a href="/profilepage" sec:authentication="principal.user.firstName"><strong></strong></a>
+    </li>
+</ul>
+
+
+<ul sec:authorize="!isAuthenticated()">
+    <li>
+        <a href="/login"><strong>Войти</strong></a>
+    </li>
+</ul>
+
